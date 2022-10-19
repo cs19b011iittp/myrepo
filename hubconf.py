@@ -121,7 +121,7 @@ def train(cnn, loss_func, optimizer, loaders, num_epochs):
 def test_model(model1=None, test_data_loader=None):
 
   accuracy_val, precision_val, recall_val, f1score_val = 0, 0, 0, 0
-  model1.eval()
+  # model1.eval()
   with torch.no_grad():
         correct = 0
         total = 0
