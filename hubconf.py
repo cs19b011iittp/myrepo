@@ -119,16 +119,44 @@ def train(cnn, loss_func, optimizer, loaders, num_epochs):
 # model1=None, test_data_loader=None
 
 def test_model(model1=None, test_data_loader=None):
-    # Test the model
-    model1.eval()
-    with torch.no_grad():
+
+  accuracy_val, precision_val, recall_val, f1score_val = 0, 0, 0, 0
+  model1.eval()
+  with torch.no_grad():
         correct = 0
         total = 0
         for images, labels in test_data_loader['test']:
-            test_output, last_layer = cnn(images)
+            test_output, last_layer = model1(images)
             pred_y = torch.max(test_output, 1)[1].data.squeeze()
-            accuracy = (pred_y == labels).sum().item() / float(labels.size(0))
-            pass
-        print('Test Accuracy of the model on the 10000 test images: %.2f' % accuracy)
+            # accuracy: (tp + tn) / (p + n)
+            accuracy_val = accuracy_score(testy, yhat_classes)
+            print('Accuracy: %f' % accuracy)
+            # precision tp / (tp + fp)
+            precision_val = precision_score(testy, yhat_classes)
+            print('Precision: %f' % precision)
+            # recall: tp / (tp + fn)
+            recall_val = recall_score(testy, yhat_classes)
+            print('Recall: %f' % recall)
+            # f1: 2 tp / (2 tp + fp + fn)
+            f1score_val = f1_score(testy, yhat_classes)
+            print('F1 score: %f' % f1)
+  
+  
+  print ('Returning metrics... (rollnumber: xx)')
+  
+  return accuracy_val, precision_val, recall_val, f1score_val
+
+# def test_model(model1=None, test_data_loader=None):
+#     # Test the model
+#     model1.eval()
+#     with torch.no_grad():
+#         correct = 0
+#         total = 0
+#         for images, labels in test_data_loader['test']:
+#             test_output, last_layer = model1(images)
+#             pred_y = torch.max(test_output, 1)[1].data.squeeze()
+#             accuracy = (pred_y == labels).sum().item() / float(labels.size(0))
+#             pass
+#         print('Test Accuracy of the model on the 10000 test images: %.2f' % accuracy)
     
-        pass
+#         pass
