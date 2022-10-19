@@ -115,15 +115,16 @@ def train(cnn, loss_func, optimizer, loaders, num_epochs):
     pass
     PATH = './saved_models/FMNIST_model.pth'
     torch.save(cnn.state_dict(), PATH)
+    
+# model1=None, test_data_loader=None
 
-
-def test_model(cnn, loaders):
+def test_model(model1=None, test_data_loader=None):
     # Test the model
-    cnn.eval()
+    model1.eval()
     with torch.no_grad():
         correct = 0
         total = 0
-        for images, labels in loaders['test']:
+        for images, labels in test_data_loader['test']:
             test_output, last_layer = cnn(images)
             pred_y = torch.max(test_output, 1)[1].data.squeeze()
             accuracy = (pred_y == labels).sum().item() / float(labels.size(0))
