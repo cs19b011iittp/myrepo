@@ -119,7 +119,8 @@ def train(cnn, loss_func, optimizer, loaders, num_epochs):
 # model1=None, test_data_loader=None
 
 def test_model(model1=None, test_data_loader=None):
-
+  #predictions = model1.predict(test_input_data)
+  #pred_label = [np.argmax(i) for i in predictions]
   accuracy_val, precision_val, recall_val, f1score_val = 0, 0, 0, 0
   # model1.eval()
   with torch.no_grad():
@@ -129,16 +130,16 @@ def test_model(model1=None, test_data_loader=None):
             test_output, last_layer = model1(images)
             pred_y = torch.max(test_output, 1)[1].data.squeeze()
             # accuracy: (tp + tn) / (p + n)
-            accuracy_val = accuracy_score(testy, yhat_classes)
+            accuracy_val = accuracy_score(labels,pred_y)
             print('Accuracy: %f' % accuracy)
             # precision tp / (tp + fp)
-            precision_val = precision_score(testy, yhat_classes)
+            precision_val = precision_score(labels,pred_y)
             print('Precision: %f' % precision)
             # recall: tp / (tp + fn)
-            recall_val = recall_score(testy, yhat_classes)
+            recall_val = recall_score(labels,pred_y)
             print('Recall: %f' % recall)
             # f1: 2 tp / (2 tp + fp + fn)
-            f1score_val = f1_score(testy, yhat_classes)
+            f1score_val = f1_score(labels,pred_y)
             print('F1 score: %f' % f1)
   
   
