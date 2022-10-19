@@ -55,7 +55,7 @@ def get_model_advanced(train_data_loader=None, n_epochs=10,lr=1e-4,config=None):
 
   for epoch in range(n_epochs):
 
-    model = get_model()
+    model = cs19b015NN()
     criterion = nn.CrossEntropyLoss()
     learning_rate = lr
     optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
