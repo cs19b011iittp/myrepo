@@ -72,7 +72,7 @@ class CNN(nn.Module):
         output = self.out(x)
         return output, x    # return x for visualization
 
-def get_model():
+def get_model(train_data_loader=None, n_epochs=10):
     cnn = CNN()
     loss_func = nn.CrossEntropyLoss()   
     optimizer = optim.Adam(cnn.parameters(), lr = 0.01)   
